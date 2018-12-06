@@ -17,4 +17,6 @@ Pod::Spec.new do |s|
 
   s.vendored_frameworks = "**/GlossomAds.framework"
 
+  s.frameworks = 'AdSupport', 'AVFoundation', 'CoreGraphics', 'CoreMedia', 'CoreTelephony', 'MediaPlayer', 'StoreKit', 'SystemConfiguration', 'SafariServices', 'UIKit', 'WebKit'
+
 end
