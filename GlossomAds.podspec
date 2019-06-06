@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "https://www.glossom.co.jp"
 
-  s.license      = { :type => 'Copyright', :text => 'Copyright ADFULLY Inc. All rights reserved.' }
+  s.license      = { :type => 'Copyright', :text => 'Copyright Glossom. All rights reserved.' }
 
   s.author          = "Glossom Inc."
 
