@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "GlossomAds"
-  s.version      = "1.10.2"
+  s.version      = "1.10.4"
   s.summary      = "GlossomAdsはプロモーション効果の最大化とメディア収益の拡大を両立させた
 安心/安全な広告配信を目指す動画アドネットワークです"
 
