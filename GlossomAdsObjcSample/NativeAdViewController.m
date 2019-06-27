@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.playAdButton.enabled = NO;
+  
   self.nativeAd = [[GlossomAdsNativeAd alloc] initWithZoneId:kGlossomAdsNativeAdZoneId];
   self.nativeAd.delegate = self;
 }
@@ -57,15 +58,5 @@
 - (void)onGlossomNativeAdPlayWithError:(NSError *)error {
   self.interactionLog.text = [NSString stringWithFormat:@"%@play failed\n", self.interactionLog.text];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
