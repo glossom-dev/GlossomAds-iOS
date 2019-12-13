@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @import GlossomAds;
-@interface InterstitialViewController : UIViewController <GlossomAdsLoadDelegate, GlossomAdsInterstitialAdDelegate>
+@interface InterstitialViewController : UIViewController <GlossomAdsInterstitialAdDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *showAdButton;
 
 @end

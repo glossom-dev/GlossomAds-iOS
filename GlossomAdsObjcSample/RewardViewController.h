@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @import GlossomAds;
-@interface RewardViewController : UIViewController <GlossomAdsLoadDelegate, GlossomAdsRewardAdDelegate>
+@interface RewardViewController : UIViewController <GlossomAdsRewardAdDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *rewardPoints;
 @property (weak, nonatomic) IBOutlet UIButton *showAdButton;
 

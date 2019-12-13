@@ -18,21 +18,6 @@ FOUNDATION_EXPORT const unsigned char GlossomAdsVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <GlossomAds/PublicHeader.h>
 
 
-typedef NS_ENUM(NSInteger, GlossomAdLoadError) {
-    GlossomAdsLoadErrorNoAd,
-    GlossomAdsLoadErrorNetworkError,
-    GlossomAdsLoadErrorInvalidResponse,
-    GlossomAdsLoadErrorUnknown
-};
-
-typedef NS_ENUM(NSInteger, GlossomAdPlayError) {
-    GlossomAdsPlayErrorAlreadyShowing,
-    GlossomAdsPlayErrorNetworkOffline,
-    GlossomAdsPlayErrorZoneNotInitialized,
-    GlossomAdsPlayErrorZoneNotReady,
-    GlossomAdsPlayErrorInvalidZoneType
-};
-
 /**
  *  GlossomAdsDelegate
  *
@@ -49,17 +34,7 @@ typedef NS_ENUM(NSInteger, GlossomAdPlayError) {
  *  @param zoneId    The affected zone.
  */
 - (void)onAdAvailabilityChange:(BOOL)available inZone:(nonnull NSString *)zoneId;
-@end
 
-/**
- *  GlossomAdsLoadDelegate
- */
-@protocol GlossomAdsLoadDelegate <NSObject>
-
-@optional
-
-- (void)onAdLoadSuccess:(nonnull NSString *)zoneId;
-- (void)onAdLoadFail:(nonnull NSString *)zoneId error:(GlossomAdLoadError)error;
 @end
 
 /**
@@ -107,14 +82,6 @@ typedef NS_ENUM(NSInteger, GlossomAdPlayError) {
  *  @param zoneId The affected zone.
  */
 - (void)onGlossomAdsVideoFinish:(nonnull NSString *)zoneId;
-
-/**
- *  Notifies your app that an error occurred when playing.
- *
- *  @param zoneId
- *  @param error Error type
- */
-- (void)onGlossomAdsVideoPlayError:(nonnull NSString *)zoneId error:(NSError *)error;
 
 @end
 
@@ -272,21 +239,6 @@ typedef NS_ENUM(NSInteger, GlossomBillBoardAdLayoutHorizontal) {
 + (nullable id)userAttributeForKey: (nonnull NSString *)key;
 
 /**
- Set sound setting
- 
- @param enable output is YES , mute is NO
- */
-+ (void)setSoundEnable:(BOOL)enable;
-
-/**
- *  Returns current sound setting
- *
- *  @return A boolean indicating if the sound setting currently output mode
- 
- */
-+ (BOOL)isSoundEnabled;
-
-/**
  Set client option value for key.
 
  @param key client option key
@@ -313,15 +265,6 @@ typedef NS_ENUM(NSInteger, GlossomBillBoardAdLayoutHorizontal) {
  @param clientOptions A dictionary of optional request parameter for GlossomAds.
  */
 + (void)configure:(nonnull NSString *)appId zoneIds:(nonnull NSArray<NSString *> *)zoneIds clientOptions:(nullable NSDictionary *)clientOptions;
-
-/**
- Initialize GlossomAds for manual loading mode
-
- @param appId The GlossomAds app ID for your app. This can be created and retrieved by Glossom,Inc.
- @param zoneIds An array of at least one GlossomAds zone ID string. GlossomAds zone IDs can be created and retrieved by Glossom,Inc.
- @param clientOptions A dictionary of optional request parameter for GlossomAds.
- */
-+ (void)initialize:(nonnull NSString *)appId zoneIds:(nonnull NSArray<NSString *> *)zoneIds clientOptions:(nullable NSDictionary *)clientOptions;
 
 /**
  Start requesting GlossomAds.
@@ -351,8 +294,6 @@ typedef NS_ENUM(NSInteger, GlossomBillBoardAdLayoutHorizontal) {
  @param zoneId The affected zone.
  */
 + (void)setDelegate:(nullable id <GlossomAdsDelegate>)delegate forZone:(nonnull NSString *)zoneId;
-
-+ (void)load:(nonnull NSString *)zoneId notifyTo:(nullable id <GlossomAdsLoadDelegate>)delegate;
 
 /**
  *  Plays an GlossomAds ad.

@@ -3,15 +3,7 @@ GlossomAds SDK
 
 # ・セットアップ
 
-## CocoaPodsで設置
-
-GlossomAds SDKはCocoaPodsで設置することが出来ます。
-
-Podfileに下記のように書いて設置することが出来ます。
-
-`pod 'GlossomAds'`
-
-## Frameworkをダウンロードして設置
+## 基本設定
 
 1. `GlossomAds.framework`をプロジェクトに追加してください
 2. **TARGETS > Build Phases > Link Binary With Libraries** を開いて、下記のライブラリとフレームワークを追加してください
@@ -28,55 +20,35 @@ Podfileに下記のように書いて設置することが出来ます。
   - `SafariServices.framework`（v1.10.0から追加）
 
 # ・SDK実装
-## 動画リワード広告 / 動画インタースティシャル広告 / 動画Billboard広告
+## 1.動画リワード広告 / 動画インタースティシャル広告 / 動画Billboard広告
 
 動画広告を実装する方法を紹介します。  
 以下はObjective-Cでの実装になりますが、Swiftでも同様の実装で動作します。
 
-### 初期化
+## 広告の表示
+
+SDKの初期化から動画を実際に表示するまでの実装になります。  
+AppID, ZoneIDには弊社が発行したご自身のIDをお使いください。
+
+#### AppDelegate.m
 
 ```objc
+@implementation AppDelegate
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-  [GlossomAds initialize:/* App ID */
+  [GlossomAds configure:/* App ID */
                   zoneIds:@[/* Zone IDs */]
+               delegate:self
           clientOptions:@{/* Options */}]
 
   return YES;
 }
 ```
 
-* 広告Zoneの初期化は一回のみになります、複数zoneご利用になる場合、発行されたzones全部入れるか、各Zoneに対して複数の初期化を実施してください。
-* `application:didFinishLaunchingWithOptions:`ライフサイクル等、アプリの開始直後に極力呼び出して下さい。
+＊SDKの初期化は一回のみになります、複数zoneご利用になる場合、発行されたzones全部入れてください。
 
-
-### 広告取得
-```objc
-[GlossomAds load:/* Zone ID */ 
-　　　　　notifyTo:/* GlossomAdsLoadDelegate */];
-```
-広告を再生する前に、広告情報を取得する必要があります。
-
-広告の在庫が確認できるか、広告取得に失敗した場合には `GlossomAdsLoadDelegate` を通じて通知を受け取れます。
-
-<font color="red">*注意:*</font> 初期化をしないと、loadは必ず失敗になります。
-
-```objc
-typedef NS_ENUM(NSInteger, GlossomAdLoadError) {
-    GlossomAdsLoadErrorNoAd,
-    GlossomAdsLoadErrorNetworkError,
-    GlossomAdsLoadErrorInvalidResponse,
-    GlossomAdsLoadErrorUnknown
-};
-
-- (void)onAdLoadSuccess:(nonnull NSString *)zoneId;
-- (void)onAdLoadFail:(nonnull NSString *)zoneId error:(GlossomAdLoadError)error;
-
-```
-
-### 広告の表示
-
-広告の準備が出来ましたら、広告種類に合わせて再生関数を呼び出して表示が出来ます。
+#### ViewController.m
 
 ##### 動画リワード広告再生
 
@@ -98,7 +70,29 @@ typedef NS_ENUM(NSInteger, GlossomAdLoadError) {
 }
 ```
 
-#### 動画Billboard広告の表示
+## 報酬の付与(動画リワード広告のみ)
+
+上述の動画を表示する際に指定したDelegate用のクラスにdelegateメソッドを実装し、その中でユーザに報酬を付与する実装をしてください。
+
+#### ViewController.h
+
+```objc
+@import GlossomAds;
+
+@interface ViewController : UIViewController<GlossomAdsRewardAdDelegate>
+```
+
+#### ViewController.m
+
+```objc
+- (void)onGlossomAdsReward:(NSString *)zoneId success:(BOOL)success {
+  if (success) {
+    // ユーザに報酬を付与する
+  }
+}
+```
+
+## 動画Billboard広告の表示
 
 ```objc
 - (IBAction)triggerVideo:(UIButton *)button {
@@ -119,47 +113,19 @@ TOP、MIDDLE、BOTTOM(デフォルト)
 横画面の場合のレイアウトを指定します  
 LEFT(デフォルト)、MIDDLE、RIGHT
 
-### 報酬の付与(動画リワード広告のみ)
-
-上述の動画を表示する際に指定したDelegate用のクラスにdelegateメソッドを実装し、その中でユーザに報酬を付与する実装をしてください。
-
-```objc
-@import GlossomAds;
-
-@interface ViewController : UIViewController<GlossomAdsRewardAdDelegate>
-
-- (void)onGlossomAdsReward:(NSString *)zoneId success:(BOOL)success {
-  if (success) {
-    // ユーザに報酬を付与する
-  }
-}
-```
-
-### 2回目以降の広告再生
-
-最初に広告を再生した後、再度広告を再生するためには広告取得（Load）から繰り返す必要があります。
-
-```
-① Zone初期化
-② 広告取得
-③ 再生
-④ 広告取得
-...
-
-```	
-
-## 動画Native広告
+## 2.動画Native広告
 v1.10から、動画Nativeのフォーマット追加しました。サイズ設定できるの動画Viewを提供し、アプリ内任意の位置に貼ることができます。
 
 ### 動画Native広告実装
 以下はObjective-Cでの実装になりますが、Swiftでも同様の実装で動作します。
 具体的の実装はサンプル内`NativeAdViewController.m `を参考することがおすすめです。
 
-* ZoneIDの初期化
+* ZoneIDの初期化（configure）
 
 ```objc
-  [GlossomAds initialize:/* App ID */
-                  zoneIds:@[/* Zone IDs */]
+  [GlossomAds configure:/* App ID */
+                  zoneIds:@[/* 動画NativeのZone IDs */]
+               delegate:self
           clientOptions:@{/* Options */}]
 ```
 
@@ -206,7 +172,7 @@ self.nativeAd.delegate = self;
 [self.nativeAd playMediaView];
 ```
 
-<font color="red">*注意:*</font> `ZoneIDの初期化`しないと`loadAd`は必ず失敗になります。  
+<font color="red">*注意:*</font> `ZoneIDの初期化（configure）`しないと`loadAd`必ず失敗になります。  
 
 ## 動画nativeの動画のガイドライン
 ### サイズ目安について
@@ -225,26 +191,7 @@ self.nativeAd.delegate = self;
 * 同じページに複数動画Nativeを利用したい場合は、数に応じて複数zoneを利用してください。
 * 1画面で1箇所の設置を推奨します。
 
-## 広告再生時の音設定について
-動画広告が再生する際にBGMを流すが否か設定することが出来ます。
-
-音設定を明示的にやらないと次のように動作します。
-
-| 広告種類 | Default値 |
-| --- | :---: |
-| Reward | 音あり |
-| Interstitial | 音あり |
-| Billboard | 無音 |
-| Native | 無音 |
-
-`GlossomAds.setSoundEnable:(BOOL)enable`
-
-enableをTrueにすると広告再生時に音が流れるようになります。
-
-また、この関数を呼び出すと左上にMuteボタンが表示され、広告再生中にユーザがコントロールすることができるようになります。NativeAdは、常時Muteボタンが表示されます。
-
-
-## テストモード
+## 3.テストモード
 
 指定した広告IDの端末上でのSDKの動作をテストモードにすることが可能です。
 テストモードにすると配信される案件がテスト案件のみになります。

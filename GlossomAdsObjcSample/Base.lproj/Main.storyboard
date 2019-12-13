@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RpR-63-scP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="RpR-63-scP">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14252.5"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -153,34 +153,14 @@
                                     <action selector="showAd:" destination="h4P-fv-FNV" eventType="touchUpInside" id="Yr3-pM-awi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpG-bF-YPY">
-                                <rect key="frame" x="183" y="283" width="48" height="30"/>
-                                <state key="normal" title="loadAd"/>
-                                <connections>
-                                    <action selector="loadAd:" destination="h4P-fv-FNV" eventType="touchUpInside" id="CHN-nA-1mZ"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TRa-do-fGG">
-                                <rect key="frame" x="10" y="395" width="394" height="331"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="VJn-Da-NVB" firstAttribute="centerX" secondItem="V0U-Cz-MQF" secondAttribute="centerX" id="DgI-ou-TIU"/>
-                            <constraint firstItem="TRa-do-fGG" firstAttribute="top" secondItem="VJn-Da-NVB" secondAttribute="bottom" constant="12" id="WEO-Vq-fTp"/>
                             <constraint firstItem="VJn-Da-NVB" firstAttribute="centerY" secondItem="V0U-Cz-MQF" secondAttribute="centerY" id="bLX-oL-nDs"/>
-                            <constraint firstItem="VJn-Da-NVB" firstAttribute="top" secondItem="zpG-bF-YPY" secondAttribute="bottom" constant="40" id="dsL-cb-mfC"/>
-                            <constraint firstItem="zpG-bF-YPY" firstAttribute="centerX" secondItem="V0U-Cz-MQF" secondAttribute="centerX" id="lp7-Po-Zcv"/>
-                            <constraint firstItem="TRa-do-fGG" firstAttribute="leading" secondItem="V0U-Cz-MQF" secondAttribute="leading" constant="10" id="qmK-HG-8Au"/>
-                            <constraint firstItem="6sJ-ub-FG8" firstAttribute="top" secondItem="TRa-do-fGG" secondAttribute="bottom" constant="10" id="xYQ-gq-Fbe"/>
-                            <constraint firstAttribute="trailing" secondItem="TRa-do-fGG" secondAttribute="trailing" constant="10" id="xrt-Bs-gGJ"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="log" destination="TRa-do-fGG" id="vTG-YJ-f4f"/>
                         <outlet property="showAdButton" destination="VJn-Da-NVB" id="Gno-Jt-Jkz"/>
                     </connections>
                 </viewController>
@@ -213,36 +193,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaJ-nC-vJZ">
-                                <rect key="frame" x="183" y="270" width="48" height="30"/>
-                                <state key="normal" title="loadAd"/>
-                                <connections>
-                                    <action selector="loadAd:" destination="AnL-ex-k9w" eventType="touchUpInside" id="9xe-BI-YX4"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lrr-4E-yTH">
-                                <rect key="frame" x="10" y="395" width="394" height="331"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lrr-4E-yTH" firstAttribute="top" secondItem="GsY-PY-nbo" secondAttribute="bottom" constant="12" id="38g-Ep-pln"/>
                             <constraint firstItem="GsY-PY-nbo" firstAttribute="top" secondItem="NTA-7c-EP6" secondAttribute="bottom" constant="16" id="6FK-s1-gGN"/>
                             <constraint firstItem="GsY-PY-nbo" firstAttribute="centerY" secondItem="sj3-zz-tIR" secondAttribute="centerY" id="G3H-6P-Sv8"/>
                             <constraint firstItem="NTA-7c-EP6" firstAttribute="centerX" secondItem="sj3-zz-tIR" secondAttribute="centerX" id="Ise-Iv-o0p"/>
-                            <constraint firstItem="lrr-4E-yTH" firstAttribute="leading" secondItem="sj3-zz-tIR" secondAttribute="leading" constant="10" id="SoX-ik-e6Y"/>
-                            <constraint firstAttribute="trailing" secondItem="lrr-4E-yTH" secondAttribute="trailing" constant="10" id="U2i-Av-A9Z"/>
                             <constraint firstItem="GsY-PY-nbo" firstAttribute="centerX" secondItem="sj3-zz-tIR" secondAttribute="centerX" id="XmP-i0-ZV5"/>
-                            <constraint firstItem="ZaJ-nC-vJZ" firstAttribute="centerX" secondItem="sj3-zz-tIR" secondAttribute="centerX" id="kVz-tg-MRa"/>
-                            <constraint firstItem="9IY-SQ-08N" firstAttribute="top" secondItem="lrr-4E-yTH" secondAttribute="bottom" constant="10" id="pXf-WJ-JB9"/>
-                            <constraint firstItem="NTA-7c-EP6" firstAttribute="top" secondItem="ZaJ-nC-vJZ" secondAttribute="bottom" constant="16" id="zNB-Kw-TBh"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="log" destination="lrr-4E-yTH" id="XAP-D1-Hp8"/>
                         <outlet property="rewardPoints" destination="NTA-7c-EP6" id="0e4-zJ-URG"/>
                         <outlet property="showAdButton" destination="GsY-PY-nbo" id="A0g-gX-KHK"/>
                     </connections>

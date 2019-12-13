@@ -17,24 +17,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  BOOL isAutoMode = false;
 
   //set up to receive test movie, you can find your deviceId from console log
-  //[GlossomAds addTestDevice:@"C9BAB6DA-7896-4382-9E5F-E87A1E2C5582"];
+  //[GlossomAds addTestDevice:@"1115D852-FFAF-4510-B375-A331267C847E"];
 
   // ZoneIDを指定してGlossomAdsを初期化
   // clientOptionsには広告のリクエストパラメータに含める追加情報を適時入れていください
-  if (isAutoMode) {
-    [GlossomAds configure:kGlossomAdsAppID zoneIds:@[kGlossomAdsRewardZoneId,
-                                                     kGlossomAdsInterstitialZoneID,
-                                                     kGlossomAdsBillboardAdZoneId,
-                                                     kGlossomAdsNativeAdZoneId] delegate:self clientOptions:nil];
-  } else {
-    [GlossomAds initialize:kGlossomAdsAppID zoneIds:@[kGlossomAdsRewardZoneId,
-                                                      kGlossomAdsInterstitialZoneID,
-                                                      kGlossomAdsBillboardAdZoneId,
-                                                      kGlossomAdsNativeAdZoneId] clientOptions:nil];
-  }
+  [GlossomAds configure:kGlossomAdsAppID zoneIds:@[kGlossomAdsInterstitialZoneID, kGlossomAdsRewardZoneId, kGlossomAdsBillboardAdZoneId, kGlossomAdsNativeAdZoneId] delegate:self clientOptions:nil];
+  
   return YES;
 }
 
@@ -64,5 +54,13 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
   // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+#pragma GlossomAdsDelegate
+
+// 広告在庫が変更する時にコールバックを受け取ることができます
+- (void)onAdAvailabilityChange:(BOOL)available inZone:(NSString *)zoneId {
+  [[NSNotificationCenter defaultCenter] postNotificationName:kAdAvailabilityChange object:nil];
+}
+
 
 @end
