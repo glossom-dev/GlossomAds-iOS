@@ -10,6 +10,7 @@
 #import "AppConst.h"
 
 @interface RewardViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *log;
 
 @end
 
@@ -17,10 +18,6 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  _showAdButton.enabled = [GlossomAds isReady:kGlossomAdsRewardZoneId];
-
-  // 再生可能状態の変更通知を受け取る
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adAvailabilityChange) name:kAdAvailabilityChange object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,16 +25,27 @@
   // Dispose of any resources that can be recreated.
 }
 
-- (void)adAvailabilityChange {
-  NSLog(@"adAvailabilityChange");
-  _showAdButton.enabled = [GlossomAds isReady:kGlossomAdsRewardZoneId];
-}
-
 #pragma mark - IBAction
 
+- (IBAction)loadAd:(id)sender {
+  self.log.text = [NSString stringWithFormat:@"%@load ad clicked\n", self.log.text];
+  [GlossomAds load:kGlossomAdsRewardZoneId notifyTo:self];
+}
+
 - (IBAction)showAd:(UIButton *)sender {
+  self.log.text = [NSString stringWithFormat:@"%@show ad clicked\n", self.log.text];
   // リワード動画広告を表示します
   [GlossomAds showRewardVideo:kGlossomAdsRewardZoneId delegate:self];
+}
+
+- (void)onAdLoadSuccess:(NSString *)zoneId {
+  self.log.text = [NSString stringWithFormat:@"%@ad load success. zone id : %@\n", self.log.text, zoneId];
+  _showAdButton.enabled = true;
+}
+
+- (void)onAdLoadFail:(NSString *)zoneId error:(GlossomAdLoadError)error {
+  self.log.text = [NSString stringWithFormat:@"%@ad load fail (%d). zone id : %@\n", self.log.text, (int)error, zoneId];
+  _showAdButton.enabled = false;
 }
 
 #pragma mark - GlossomAdsRewardAdDelegate
@@ -84,7 +92,10 @@
 // 動画広告が閉じたことを通知します
 - (void)onGlossomAdsAdClose:(NSString *)zoneId isShown:(BOOL)shown {
   NSLog(@"onGlossomAdsAdClose: %@, shown: %d", zoneId, shown);
-  _showAdButton.enabled = [GlossomAds isReady:kGlossomAdsRewardZoneId];
+}
+
+- (void)onGlossomAdsVideoPlayError:(NSString *)zoneId error:(NSError *)error {
+  self.log.text = [NSString stringWithFormat:@"%@video play error. zone id : %@, error code : %d\n", self.log.text, zoneId, (int)error.code];
 }
 
 @end
