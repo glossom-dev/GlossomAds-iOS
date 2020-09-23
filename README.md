@@ -26,6 +26,20 @@ Podfileに下記のように書いて設置することが出来ます。
   - `UIKit.framework`
   - `WebKit.framework`
   - `SafariServices.framework`（v1.10.0から追加）
+  
+  # ・iOS14から必要な設定
+  ## Default Browserを変更した端末での遷移について
+
+   iOS14からDefault BrowserをSafari以外に設定した場合、一部の広告でクリックした時の遷移がうまくできないケースがあります。
+   その対応のため、Info.plistで次のような設定を行ってください。
+
+   ```xml
+   　<key>LSApplicationQueriesSchemes</key>
+   　　<array>
+   　　　<string>http</string>
+   　　　<string>https</string>
+   　　</array>
+   ```
 
 # ・SDK実装
 ## 動画リワード広告 / 動画インタースティシャル広告 / 動画Billboard広告
