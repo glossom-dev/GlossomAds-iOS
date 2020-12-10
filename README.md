@@ -269,12 +269,3 @@ enableをTrueにすると広告再生時に音が流れるようになります�
 [GlossomAds addTestDevice:/* 広告ID */];
 ```
 ＊広告IDはコンソールログにも確認することができます。
-
-## その他
-
-上述した他にもいくつかAPIがあります。  
-APIドキュメントをHTMLで用意しているのでそちらをご参照ください。
-
-```bash
-$ open docs/index.html
-```
